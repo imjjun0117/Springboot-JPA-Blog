@@ -1,8 +1,42 @@
+#localhost:8000/blog/...
+# use-new-id-generator-mappings: false JPA 넘버링 사용 안함 
+# ddl-auto create는 실행할 때마다 지우고 생성 최초에만 create 후에 update로 수정  
+
 server:
-  port: 8080
+  port: 8000
+  servlet:
+    context-path: /blog
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  
 spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+      
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/blog?serverTimezone=Asia/Seoul
     username: cos
     password: cos1234
+    
+ 
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+      #변수명 그대로 테이블에 피드 생성 낙타체 적용 안됨 org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      use-new-id-generator-mappings: false 
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+      
