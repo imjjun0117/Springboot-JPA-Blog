@@ -34,7 +34,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)// 프로젝트에서 연결된 DB의 넘버링 전략을 따라간다.
 	private int id; // 시퀀스, auto_increment
 	
-	@Column(nullable = false, length = 30, unique = true)
+	@Column(nullable = false, length = 100, unique = true)
 	private String username;
 	
 	@Column(nullable = false, length = 200)// 123456 -> 해쉬(비밀번호 암호화)
@@ -42,6 +42,8 @@ public class User {
 	
 	@Column(nullable = false, length = 50)
 	private String email;
+	
+	private String oauth; // oauth 사용자 판별
 	
 	// @ColumnDefault("'user'")
 	// DB는 RoleType이라는게 없다 어노테이션으로 String 설정
@@ -52,7 +54,5 @@ public class User {
 	
 	@CreationTimestamp // 시간이 자동으로 입력
 	private Timestamp createDate;
-
-
 	
 }

@@ -5,6 +5,9 @@ let index={
 		//()=>{} this를 바인딩하기 위해서
 			this.save();
 		});
+		$("#btn_update").on("click",()=>{ 
+			this.update();
+		});
 	},
 	
 	save:function(){
@@ -25,14 +28,39 @@ let index={
 			contentType:"application/json; charset=UTF-8",//body 데이터가 어떤 타입인지(MIME)
 			dataType:"json" //서버에서 응답이 왔을 때 기본적으로 모든 것이 문자열(json이면)=>javaScript 오브젝트로 변환
 		}).done(function(resp){
+			//if(resp.status === 500){
+				//alert("회원가입에 실패하였습니다.");
+				//return;
+			//}//end if
 			alert("회원가입이 완료되었습니다.");
 			//console.log(resp);
 			location.href="/";
 		}).fail(function(error){
-			alert(JSON.stringify(error));
+			alert("회원가입에 실패했습니다.");
 		});//ajax 통신을 이용해서 3개의 데이터를 json으로 변경하여 insert 요청
 		
-	}//save
+	},//save
+	update:function(){
+		let data={
+			id:$("#id").val(),
+			username:$("#username").val(),
+			password:$("#password").val(),
+			email:$("#email").val()
+		};//data		
+		
+		$.ajax({
+			type:"put",
+			url:"/user",
+			data:JSON.stringify(data),
+			contentType:"application/json; charset=UTF-8",
+			dataType:"json" 
+		}).done(function(resp){
+			alert("회원수정이 완료되었습니다.");
+			location.href="/";
+		}).fail(function(error){
+			alert(JSON.stringify(error));
+		});
+	}//update
 	
 }//index
 
